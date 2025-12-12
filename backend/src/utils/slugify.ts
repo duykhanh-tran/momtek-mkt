@@ -1,5 +1,3 @@
-// Hàm này nhận vào một chuỗi văn bản và chuyển đổi nó thành một "slug"
-// Slug là một phiên bản của chuỗi, được tối ưu hóa để sử dụng trong URL.
 export const slugify = (text: string): string => {
   if (!text) return '';
 

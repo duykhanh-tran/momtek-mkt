@@ -72,6 +72,13 @@ export interface Config {
     posts: Post;
     categories: Category;
     'form-submissions': FormSubmission;
+    karaokeTracks: KaraokeTrack;
+    pronunciationExercises: PronunciationExercise;
+    quizzes: Quiz;
+    topics: Topic;
+    videos: Video;
+    workbooks: Workbook;
+    units: Unit;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -83,6 +90,13 @@ export interface Config {
     posts: PostsSelect<false> | PostsSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
+    karaokeTracks: KaraokeTracksSelect<false> | KaraokeTracksSelect<true>;
+    pronunciationExercises: PronunciationExercisesSelect<false> | PronunciationExercisesSelect<true>;
+    quizzes: QuizzesSelect<false> | QuizzesSelect<true>;
+    topics: TopicsSelect<false> | TopicsSelect<true>;
+    videos: VideosSelect<false> | VideosSelect<true>;
+    workbooks: WorkbooksSelect<false> | WorkbooksSelect<true>;
+    units: UnitsSelect<false> | UnitsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -311,6 +325,251 @@ export interface FormSubmission {
   createdAt: string;
 }
 /**
+ * Nội dung cho bài học Karaoke.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "karaokeTracks".
+ */
+export interface KaraokeTrack {
+  id: string;
+  title: string;
+  /**
+   * URL trỏ đến file âm thanh (đã tách lời).
+   */
+  audioTrackUrl: string;
+  /**
+   * URL trỏ đến file .lrc hoặc JSON chứa timestamp lời bài hát.
+   */
+  lyricFileUrl: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Nội dung cho bài luyện âm (Speech AI).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pronunciationExercises".
+ */
+export interface PronunciationExercise {
+  id: string;
+  title: string;
+  /**
+   * Mỗi mục là một câu/từ riêng lẻ mà người dùng sẽ đọc.
+   */
+  textToPractice?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Nội dung cho bài Game/Quiz trắc nghiệm.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "quizzes".
+ */
+export interface Quiz {
+  id: string;
+  title: string;
+  questions?:
+    | {
+        questionImage?: (string | null) | Media;
+        questionText: string;
+        options?:
+          | {
+              optionText: string;
+              isCorrect?: boolean | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Chủ đề để nhóm các bài Unit (ví dụ: Phương tiện, Động vật).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "topics".
+ */
+export interface Topic {
+  id: string;
+  title: string;
+  /**
+   * Đường dẫn này sẽ được tạo tự động từ tiêu đề. (Bỏ trống để tự tạo)
+   */
+  slug: string;
+  thumbnail: string | Media;
+  /**
+   * Mô tả ngắn cho chủ đề này, sẽ hiển thị trong banner (Hero Section) của trang danh sách.
+   */
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Nội dung video cho Song, Short Story, Dubbing.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "videos".
+ */
+export interface Video {
+  id: string;
+  title: string;
+  /**
+   * URL đầy đủ (ví dụ: https://server.com/video.mp4) trỏ đến file video của bạn.
+   */
+  internalUrl: string;
+  duration?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Nội dung cho bài Workbook (file PDF/tài liệu tải về).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "workbooks".
+ */
+export interface Workbook {
+  id: string;
+  title: string;
+  /**
+   * File PDF hoặc tài liệu cho người dùng tải về.
+   */
+  file: string | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Bài học chính, nơi "lắp ráp" các nội dung từ thư viện.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "units".
+ */
+export interface Unit {
+  id: string;
+  title: string;
+  /**
+   * Đường dẫn này sẽ được tạo tự động từ tiêu đề. (Bỏ trống để tự tạo)
+   */
+  slug: string;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  thumbnail: string | Media;
+  topic: string | Topic;
+  level: 'Level 1' | 'Level 2' | 'Level 3';
+  /**
+   * Nếu chọn, toàn bộ Unit này sẽ bị khóa (hiển thị icon Khóa) cho người dùng thường ở trang danh sách.
+   */
+  isPro?: boolean | null;
+  tags?:
+    | {
+        tag: string;
+        id?: string | null;
+      }[]
+    | null;
+  lessons?:
+    | {
+        title: string;
+        lessonType: 'Song' | 'ShortStory' | 'Dubbing' | 'Karaoke' | 'SpeechAI' | 'GameQuiz' | 'Workbook';
+        /**
+         * Tên icon (ví dụ: music, mic, game...)
+         */
+        icon?: string | null;
+        /**
+         * Khóa bài học lẻ này.
+         */
+        isPro?: boolean | null;
+        content:
+          | {
+              relationTo: 'videos';
+              value: string | Video;
+            }
+          | {
+              relationTo: 'karaokeTracks';
+              value: string | KaraokeTrack;
+            }
+          | {
+              relationTo: 'pronunciationExercises';
+              value: string | PronunciationExercise;
+            }
+          | {
+              relationTo: 'quizzes';
+              value: string | Quiz;
+            }
+          | {
+              relationTo: 'workbooks';
+              value: string | Workbook;
+            };
+        lyrics?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        instructions?: {
+          root: {
+            type: string;
+            children: {
+              type: any;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
+          [k: string]: unknown;
+        } | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
@@ -336,6 +595,34 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'form-submissions';
         value: string | FormSubmission;
+      } | null)
+    | ({
+        relationTo: 'karaokeTracks';
+        value: string | KaraokeTrack;
+      } | null)
+    | ({
+        relationTo: 'pronunciationExercises';
+        value: string | PronunciationExercise;
+      } | null)
+    | ({
+        relationTo: 'quizzes';
+        value: string | Quiz;
+      } | null)
+    | ({
+        relationTo: 'topics';
+        value: string | Topic;
+      } | null)
+    | ({
+        relationTo: 'videos';
+        value: string | Video;
+      } | null)
+    | ({
+        relationTo: 'workbooks';
+        value: string | Workbook;
+      } | null)
+    | ({
+        relationTo: 'units';
+        value: string | Unit;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -542,6 +829,121 @@ export interface FormSubmissionsSelect<T extends boolean = true> {
   name?: T;
   email?: T;
   source?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "karaokeTracks_select".
+ */
+export interface KaraokeTracksSelect<T extends boolean = true> {
+  title?: T;
+  audioTrackUrl?: T;
+  lyricFileUrl?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pronunciationExercises_select".
+ */
+export interface PronunciationExercisesSelect<T extends boolean = true> {
+  title?: T;
+  textToPractice?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "quizzes_select".
+ */
+export interface QuizzesSelect<T extends boolean = true> {
+  title?: T;
+  questions?:
+    | T
+    | {
+        questionImage?: T;
+        questionText?: T;
+        options?:
+          | T
+          | {
+              optionText?: T;
+              isCorrect?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "topics_select".
+ */
+export interface TopicsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  thumbnail?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "videos_select".
+ */
+export interface VideosSelect<T extends boolean = true> {
+  title?: T;
+  internalUrl?: T;
+  duration?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "workbooks_select".
+ */
+export interface WorkbooksSelect<T extends boolean = true> {
+  title?: T;
+  file?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "units_select".
+ */
+export interface UnitsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  description?: T;
+  thumbnail?: T;
+  topic?: T;
+  level?: T;
+  isPro?: T;
+  tags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
+  lessons?:
+    | T
+    | {
+        title?: T;
+        lessonType?: T;
+        icon?: T;
+        isPro?: T;
+        content?: T;
+        lyrics?: T;
+        instructions?: T;
+        id?: T;
+      };
   updatedAt?: T;
   createdAt?: T;
 }

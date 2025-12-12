@@ -1,4 +1,4 @@
-import { CollectionConfig } from 'payload/types';
+import type { CollectionConfig } from 'payload';
 
 const formatSlug = (val: string): string => {
   return val

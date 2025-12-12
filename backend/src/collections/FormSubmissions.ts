@@ -1,4 +1,4 @@
-import { CollectionConfig } from 'payload/types';
+import type { CollectionConfig } from 'payload';
 import { APIError } from 'payload';
 
 export const FormSubmissions: CollectionConfig = {

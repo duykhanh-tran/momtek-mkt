@@ -2,11 +2,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-
 const HomePage = () => {
   return (
     <main>
-      
       {/* 1. Hero Section */}
       <section className="py-16 md:py-28 bg-gray-50">
         <div className="container mx-auto px-4 text-center">
@@ -19,7 +17,6 @@ const HomePage = () => {
               ngay cả khi bắt đầu từ con số 0.
             </span>
           </h1>
-
           <p className="mt-6 text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
             Trải nghiệm phương pháp học qua chơi độc quyền và công nghệ AI chấm điểm phát âm từ Momtek.
           </p>
@@ -46,7 +43,6 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-
       {/* 2. Vấn đề & Giải pháp */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-6 text-center">
@@ -68,7 +64,6 @@ const HomePage = () => {
           <p className="mt-8 text-xl font-semibold text-black">Momtek ở đây để đồng hành cùng bạn với một hệ sinh thái học tập toàn diện.</p>
         </div> 
       </section>
-
       {/* 2a. Bằng chứng tín nhiệm */}
       <section className="py-12 bg-gray-50">
         <div className="container mx-auto px-6">
@@ -124,7 +119,6 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-
       {/* 3. Trung tâm Trải nghiệm */}
       <section id="experience" className="py-20 bg-gray-50" >
         <div className="container mx-auto px-6 text-center">
@@ -161,7 +155,6 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-
       {/* 5. Phương pháp Momtek */}
       <section id="method" className="py-20 bg-gray-50">
         <div className="container mx-auto px-6 text-center">

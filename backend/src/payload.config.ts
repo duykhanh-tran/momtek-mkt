@@ -6,13 +6,20 @@ import path from 'path';
 import { buildConfig } from 'payload';
 import { fileURLToPath } from 'url';
 import dotenv from 'dotenv';
-
-
+// Collections
 import Users from './collections/Users';
 import { Media } from './collections/Media';
 import Posts from './collections/Posts';
 import { Categories } from './collections/Categories'
 import { FormSubmissions } from './collections/FormSubmissions'
+import  Karaoke_Tracks  from './collections/Karaoke_Tracks';
+import  Pronunciation_Exercises  from './collections/Pronunciation_Exercises';
+import Quizzes from './collections/Quizzes';
+import Topics from './collections/Topics';
+import Videos from './collections/Videos';
+import Workbooks from './collections/Workbooks';
+import Units from './collections/Units';
+// Endpoints
 import { ssoLoginEndpoint } from './endpoints/sso-login';
 
 const filename = fileURLToPath(import.meta.url);
@@ -33,6 +40,13 @@ export default buildConfig({
     Posts,
     Categories,
     FormSubmissions,
+    Karaoke_Tracks,
+    Pronunciation_Exercises,
+    Quizzes,
+    Topics,
+    Videos,
+    Workbooks,
+    Units,
   ],
   endpoints: [
     ssoLoginEndpoint,

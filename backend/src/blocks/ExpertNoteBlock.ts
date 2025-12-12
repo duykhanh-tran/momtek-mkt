@@ -1,4 +1,4 @@
-import { Block } from 'payload/types';
+import type { Block } from 'payload';
 
 export const ExpertNoteBlock: Block = {
   slug: 'expertNote',

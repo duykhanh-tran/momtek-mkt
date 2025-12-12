@@ -1,6 +1,6 @@
-import { Endpoint } from 'payload/config';
+import type { Endpoint } from 'payload';
 import { Payload } from 'payload';
-import { Where } from 'payload/types';
+import type { Where } from 'payload';
 import jwt from 'jsonwebtoken';
 import { NextRequest, NextResponse } from 'next/server';
 

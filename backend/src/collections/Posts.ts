@@ -1,4 +1,4 @@
-import { CollectionConfig } from 'payload/types'
+import type { CollectionConfig } from 'payload';
 import { slugify } from '../utils/slugify' 
 import { RichTextBlock } from '../blocks/RichTextBlock'
 import { ExpertNoteBlock } from '../blocks/ExpertNoteBlock'
