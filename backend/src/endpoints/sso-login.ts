@@ -22,6 +22,7 @@ async function findOrCreateUser(payload: Payload, email: string, name: string) {
       email,
       name,
       password: Math.random().toString(36).slice(-10),
+      // @ts-ignore
       _verified: true,
     },
     depth: 1,
