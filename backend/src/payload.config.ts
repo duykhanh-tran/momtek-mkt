@@ -48,6 +48,15 @@ export default buildConfig({
     Workbooks,
     Units,
   ],
+  cors: [
+    process.env.CORS_ORIGINS || '', 
+    'http://localhost:3000', 
+  ].filter(Boolean),
+
+  csrf: [
+    process.env.CORS_ORIGINS || '', 
+    'http://localhost:3000',
+  ].filter(Boolean),
   endpoints: [
     ssoLoginEndpoint,
   ], 
