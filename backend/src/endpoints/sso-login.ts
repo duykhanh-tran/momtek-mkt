@@ -32,7 +32,7 @@ async function findOrCreateUser(payload: Payload, email: string, name: string) {
 export const ssoLoginEndpoint: Endpoint = {
   path: '/sso-login',
   method: 'post',
-  handler: async (req: NextRequest) => {
+handler: async (req: any) => {
     const { payload } = req;
     const body = await req.json();
     const { email, name } = body;
