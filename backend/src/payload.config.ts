@@ -21,6 +21,8 @@ import Workbooks from './collections/Workbooks';
 import Units from './collections/Units';
 // Endpoints
 import { ssoLoginEndpoint } from './endpoints/sso-login';
+// Cloudinary
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -67,6 +69,12 @@ export default buildConfig({
   sharp, 
   plugins: [
     payloadCloudPlugin(), 
+     vercelBlobStorage({
+      collections: {
+        media: true, 
+      },
+      token: process.env.BLOB_READ_WRITE_TOKEN, 
+    }),
   ],
 });
 
