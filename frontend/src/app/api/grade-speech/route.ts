@@ -38,21 +38,22 @@ export async function POST(request: NextRequest) {
     );
     
     // Yêu cầu Azure trả về kết quả chi tiết
-    speechConfig.speechRecognitionLanguage = 'en-US'; // (Thay đổi nếu cần)
+    speechConfig.speechRecognitionLanguage = 'en-US'; 
     speechConfig.setProperty(
-    sdk.PropertyId.SpeechServiceResponse_RequestDetailedResultTrueFalse, // ✅ Sửa thành cái này
-    'true'
-);
+      sdk.PropertyId.SpeechServiceResponse_RequestDetailedResultTrueFalse, // Đã fix tên thuộc tính
+      'true'
+    );
 
     // 3. Chuẩn bị Audio Input
-    // Chuyển audio Blob (File) thành Buffer
-    const audioBuffer = Buffer.from(await audioFile.arrayBuffer());
+    // SỬA LỖI: Lấy trực tiếp ArrayBuffer, KHÔNG dùng Buffer.from() để tránh lỗi Type
+    const audioBuffer = await audioFile.arrayBuffer();
 
-    // Tạo một PushAudioInputStream từ Buffer
+    // Tạo một PushAudioInputStream
     // Chúng ta giả định âm thanh là WAV, 16kHz, 16-bit, 1 kênh
-    // (Chúng ta sẽ đảm bảo định dạng này ở Giai đoạn 4b)
     const audioFormat = sdk.AudioStreamFormat.getWaveFormatPCM(16000, 16, 1);
     const pushStream = sdk.AudioInputStream.createPushStream(audioFormat);
+    
+    // Ghi ArrayBuffer vào stream (Bây giờ kiểu dữ liệu đã khớp)
     pushStream.write(audioBuffer);
     pushStream.close();
 
