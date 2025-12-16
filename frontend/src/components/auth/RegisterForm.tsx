@@ -18,7 +18,7 @@ export default function RegisterForm() {
     setLoading(true);
     
     try {
-      const res = await fetch('/api/register', {
+      const res = await fetch('/api/register', { 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password }),
@@ -30,7 +30,7 @@ export default function RegisterForm() {
         alert('Đăng ký thành công! Vui lòng đăng nhập.');
         setView('login');
       } else {
-        // Hiển thị lỗi chi tiết từ server
+        // Xử lý lỗi trả về từ API Proxy
         if (data.errors && Array.isArray(data.errors)) {
           setError(data.errors.map((err: any) => err.message || err).join(', '));
         } else if (data.message) {

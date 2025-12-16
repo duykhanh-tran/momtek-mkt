@@ -10,7 +10,9 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: 'Missing required fields' }, { status: 400 });
     }
 
-    const payloadUrl = `${process.env.PAYLOAD_URL}/api/users`;
+    // Lấy URL của Backend Payload
+    // Lưu ý: Đảm bảo biến này KHÔNG có dấu / ở cuối trong cấu hình Vercel
+    const payloadUrl = `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/users`;
     console.log("3. Sending request to Payload at:", payloadUrl); 
 
     const response = await fetch(payloadUrl, {

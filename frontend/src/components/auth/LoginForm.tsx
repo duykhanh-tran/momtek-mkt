@@ -17,6 +17,7 @@ export default function LoginForm() {
     setLoading(true); 
     
     try {
+
       const result = await signIn('credentials', { 
         redirect: false, 
         email, 
@@ -31,8 +32,9 @@ export default function LoginForm() {
         } else {
           setError('Đăng nhập thất bại. Vui lòng thử lại.');
         }
-      } else if (!result?.ok) {
-        setError('Lỗi kết nối. Vui lòng kiểm tra kết nối mạng và thử lại.');
+      } else if (result?.ok) {
+        // Đăng nhập thành công, đóng modal hoặc reload (tùy logic của bạn)
+        // window.location.reload(); 
       }
     } catch (error) {
       console.error('Login error:', error);
