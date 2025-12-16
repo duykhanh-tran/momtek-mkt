@@ -18,6 +18,7 @@ export default function RegisterForm() {
     setLoading(true);
     
     try {
+      // Gọi đến API Proxy của Next.js (đã tạo ở bước trước)
       const res = await fetch('/api/register', { 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -30,7 +31,7 @@ export default function RegisterForm() {
         alert('Đăng ký thành công! Vui lòng đăng nhập.');
         setView('login');
       } else {
-        // Xử lý lỗi trả về từ API Proxy
+        // Xử lý hiển thị lỗi chi tiết
         if (data.errors && Array.isArray(data.errors)) {
           setError(data.errors.map((err: any) => err.message || err).join(', '));
         } else if (data.message) {

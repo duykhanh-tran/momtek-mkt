@@ -10,9 +10,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ message: 'Missing required fields' }, { status: 400 });
     }
 
-    // Lấy URL của Backend Payload
-    // Lưu ý: Đảm bảo biến này KHÔNG có dấu / ở cuối trong cấu hình Vercel
-    const payloadUrl = `${process.env.NEXT_PUBLIC_PAYLOAD_URL}/api/users`;
+    const baseUrl = process.env.PAYLOAD_URL || process.env.NEXT_PUBLIC_PAYLOAD_URL || 'http://localhost:3000';
+    const cleanBaseUrl = baseUrl.replace(/\/$/, ""); 
+    const payloadUrl = `${cleanBaseUrl}/api/users`;
+
+
     console.log("3. Sending request to Payload at:", payloadUrl); 
 
     const response = await fetch(payloadUrl, {
@@ -24,7 +26,15 @@ export async function POST(req: NextRequest) {
     console.log("4. Received response from Payload. Status:", response.status);
 
     if (!response.ok) {
-      const errorData = await response.json();
+      // Thử parse JSON, nếu server Payload trả về HTML lỗi (ví dụ 404/500 html) thì catch lỗi
+      let errorData;
+      try {
+        errorData = await response.json();
+      } catch (e) {
+        console.error("Failed to parse error JSON from Payload");
+        return NextResponse.json({ message: 'Registration failed (Unknown Error)' }, { status: response.status });
+      }
+
       console.error('Payload registration error:', errorData);
       return NextResponse.json({ message: 'Registration failed', errors: errorData.errors }, { status: response.status });
     }

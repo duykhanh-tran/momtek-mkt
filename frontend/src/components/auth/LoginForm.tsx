@@ -5,7 +5,7 @@ import { signIn } from 'next-auth/react';
 import { useModal } from '@/context/ModalContext'; 
 
 export default function LoginForm() {
-  const { setView } = useModal();
+  const { setView, closeModal } = useModal(); 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -17,7 +17,6 @@ export default function LoginForm() {
     setLoading(true); 
     
     try {
-
       const result = await signIn('credentials', { 
         redirect: false, 
         email, 
@@ -33,8 +32,11 @@ export default function LoginForm() {
           setError('Đăng nhập thất bại. Vui lòng thử lại.');
         }
       } else if (result?.ok) {
-        // Đăng nhập thành công, đóng modal hoặc reload (tùy logic của bạn)
-        // window.location.reload(); 
+        // --- BỔ SUNG: Xử lý khi đăng nhập thành công ---
+        // 1. Tải lại trang để cập nhật Header (hiện Avatar user)
+        window.location.reload();
+        // 2. (Hoặc) Đóng modal nếu bạn không muốn reload
+        // setView('close'); // hoặc closeModal() tùy context của bạn
       }
     } catch (error) {
       console.error('Login error:', error);
@@ -104,7 +106,7 @@ export default function LoginForm() {
         
         <button
           type="submit"
-          disabled={loading} // Vô hiệu hóa nút khi đang tải
+          disabled={loading}
           className="w-full flex justify-center py-2.5 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-indigo-400"
         >
           {loading ? 'Đang xử lý...' : 'Đăng nhập'}

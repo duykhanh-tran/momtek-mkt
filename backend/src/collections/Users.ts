@@ -7,7 +7,7 @@ const Users: CollectionConfig = {
     useAsTitle: 'name',
   },
   access: {
-    create: () => true, // Cho phép bất kỳ ai cũng có thể đăng ký
+    create: () => true, 
     read: () => true,
     update: ({ req: { user } }) => user?.role === 'admin' || !!user,
     delete: ({ req: { user } }) => user?.role === 'admin',

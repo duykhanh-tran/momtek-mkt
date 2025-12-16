@@ -4,14 +4,20 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: 'localhost',
-        port: '3000',
+        protocol: 'https',
+        hostname: 'momtek-backend.vercel.app', 
         pathname: '/api/media/**',
       },
       {
-        protocol: 'https',
-        hostname: 'momtek-backend.vercel.app', 
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '3000', 
+        pathname: '/api/media/**',
+      },
+      {
+        protocol: 'http',
+        hostname: '127.0.0.1', 
+        port: '3000',
         pathname: '/api/media/**',
       },
       {
@@ -24,24 +30,17 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'lh3.googleusercontent.com', 
+        hostname: 'lh3.googleusercontent.com',
       },
       {
         protocol: 'https',
-        hostname: 'platform-lookaside.fbsbx.com', 
+        hostname: 'platform-lookaside.fbsbx.com',
       },
       {
         protocol: 'https',
-        hostname: 'ui-avatars.com', 
+        hostname: 'ui-avatars.com',
       },
-      
     ],
-  },
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    ignoreBuildErrors: true,
   },
 };
 
