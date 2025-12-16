@@ -40,8 +40,8 @@ export async function POST(request: NextRequest) {
     // Yêu cầu Azure trả về kết quả chi tiết
     speechConfig.speechRecognitionLanguage = 'en-US'; // (Thay đổi nếu cần)
     speechConfig.setProperty(
-  sdk.PropertyId.SpeechServiceResponse_RequestDetailedResultTrueFalse, // <-- Dòng đã sửa
-  'true'
+    sdk.PropertyId.SpeechServiceResponse_RequestDetailedResultTrueFalse, // ✅ Sửa thành cái này
+    'true'
 );
 
     // 3. Chuẩn bị Audio Input
